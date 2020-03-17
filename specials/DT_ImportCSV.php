@@ -178,6 +178,7 @@ class DTImportCSV extends SpecialPage {
 				$errorMsg = $this->msg( 'dt_importcsv_badheader', $i, $headerVal, $titleLabels[0], $freeTextLabels[0] )->text();
 				return $errorMsg;
 			}
+			$table[0][$i] = mb_strtoupper( mb_substr( $headerVal, 0, 1 ) ) . mb_substr( $headerVal, 1 );
 		}
 		foreach ( $table as $i => $line ) {
 			if ( $i == 0 ) continue;
