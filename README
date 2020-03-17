@@ -22,7 +22,7 @@ Notes on installing Data Transfer can be found in the file INSTALL.
 Data Transfer was mostly written by Yaron Koren. The spreadsheet import
 functionality was written by Stephan Gambke.
 
-The spreadsheet import functionality makes use of the PHPExcel
+The spreadsheet import functionality makes use of the PhpSpreadsheet
 library, if it is available.
 
 == Contact ==

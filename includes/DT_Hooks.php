@@ -5,6 +5,9 @@
  * @author Yaron Koren
  * @ingroup DataTransfer
  */
+
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 class DTHooks {
 
 	/**
@@ -17,7 +20,7 @@ class DTHooks {
 		$main_row->addItem( ALItem::newFromSpecialPage( 'ViewXML' ) );
 		$main_row->addItem( ALItem::newFromSpecialPage( 'ImportXML' ) );
 		$main_row->addItem( ALItem::newFromSpecialPage( 'ImportCSV' ) );
-		if ( class_exists( 'PHPExcel' )) {
+		if ( class_exists( IOFactory::class )) {
 			$main_row->addItem( ALItem::newFromSpecialPage( 'ImportSpreadsheet' ) );
 		}
 		return true;

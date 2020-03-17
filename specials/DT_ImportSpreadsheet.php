@@ -6,6 +6,8 @@
  * @ingroup DataTransfer
  */
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 class DTImportSpreadsheet extends DTImportCSV {
 
 	public function __construct( $name = 'ImportSpreadsheet' ) {
@@ -13,8 +15,8 @@ class DTImportSpreadsheet extends DTImportCSV {
 	}
 
 	protected function printForm() {
-		if ( !class_exists( 'PhpOffice\PhpSpreadsheet\Spreadsheet' ) && !class_exists( 'PHPExcel' ) ) {
-			return '<div class="error">You must have the PhpSpreadsheet or PHPExcel library installed to run this page.</div>';
+		if ( !class_exists( IOFactory::class ) ) {
+			return '<div class="error">You must have the PhpSpreadsheet library installed to run this page.</div>';
 		}
 
 		$formText = DTUtils::printFileSelector( $this->getFiletype() );
@@ -39,13 +41,11 @@ class DTImportSpreadsheet extends DTImportCSV {
 		$metadata = stream_get_meta_data( $file );
 		$filename = $metadata['uri'];
 
-		if ( class_exists( 'PhpOffice\PhpSpreadsheet\Spreadsheet' ) ) {
-			$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load( $filename );
-		} elseif ( class_exists( 'PHPExcel' ) ) {
-			$spreadsheet = PHPExcel_IOFactory::load( $filename );
-		}
+		$objReader = IOFactory::createReaderForFile( $filename );
+		$objReader->setReadDataOnly(true);
+		@$objPhpSpreadsheet = $objReader->load( $filename );
 
-		$table = $spreadsheet->getSheet( 0 )->toArray( '', true, true, false );
+		$table = $objPhpSpreadsheet->getSheet(0)->toArray( '', true, true, false );
 
 		return $this->importFromArray( $table, $pages );
 
