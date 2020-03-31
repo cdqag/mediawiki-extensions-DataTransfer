@@ -52,7 +52,7 @@ class DTImportCSV extends SpecialPage {
 			return $text;
 		}
 
-		$source = $uploadResult->value;
+		$source = $uploadResult->value->mHandle;
 
 		$encoding = $this->getRequest()->getVal( 'encoding' );
 		$pages = [];

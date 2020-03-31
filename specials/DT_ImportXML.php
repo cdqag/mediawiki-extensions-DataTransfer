@@ -29,7 +29,7 @@ class DTImportXML extends SpecialPage {
 		if ( $request->getCheck( 'import_file' ) ) {
 			$text = DTUtils::printImportingMessage();
 			$uploadResult = ImportStreamSource::newFromUpload( "file_name" );
-			$source = $uploadResult->value;
+			$source = $uploadResult->value->mHandle;
 			$importSummary = $request->getVal( 'import_summary' );
 			$forPagesThatExist = $request->getVal( 'pagesThatExist' );
 			$text .= self::modifyPages( $source, $importSummary, $forPagesThatExist );
